@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Batting Analyzer - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Hero Section -->
+  <section class="relative bg-[url('https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg')] bg-cover bg-center h-screen flex items-center">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container mx-auto px-4 z-10 text-white">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">Analyze Your Cricket Shots Like Never Before</h1>
+        <p class="text-xl mb-8">Get professional-level feedback on your batting technique using advanced computer vision and machine learning.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="upload.html" class="bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300">
+            Upload Video
+          </a>
+          <a href="live.html" class="bg-white text-gray-800 hover:bg-gray-200 font-bold py-3 px-6 rounded-lg text-center transition duration-300">
+            Live Analysis
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6 rounded-lg bg-gray-50">
+          <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-upload text-blue-500 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">1. Upload or Record</h3>
+          <p class="text-gray-600">Upload your batting video or record live using your webcam/mobile camera.</p>
+        </div>
+        <div class="text-center p-6 rounded-lg bg-gray-50">
+          <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-brain text-green-500 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">2. AI Analysis</h3>
+          <p class="text-gray-600">Our system analyzes your shots using computer vision and machine learning.</p>
+        </div>
+        <div class="text-center p-6 rounded-lg bg-gray-50">
+          <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-chart-line text-purple-500 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">3. Get Results</h3>
+          <p class="text-gray-600">Receive detailed feedback on your technique and areas for improvement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+</body>
+</html>
