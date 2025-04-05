@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .article-card {
+      transition: all 0.3s ease;
+    }
+    .tag {
+      transition: all 0.2s;
+    }
+    .tag:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Blog Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Cricket Training Blog</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Expert tips, technique breakdowns, and training advice to improve your batting</p>
+      </div>
+
+      <!-- Featured Article -->
+      <div class="bg-blue-50 rounded-xl overflow-hidden mb-12">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2">
+            <img src="https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg" alt="Featured Article" class="w-full h-full object-cover">
+          </div>
+          <div class="md:w-1/2 p-8">
+            <div class="flex items-center space-x-2 mb-4">
+              <span class="tag bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Featured</span>
+              <span class="text-sm text-gray-500">May 15, 2023</span>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">5 Essential Drills to Improve Your Cover Drive</h2>
+            <p class="text-gray-600 mb-6">Master the most elegant shot in cricket with these proven training exercises designed to perfect your technique, timing, and footwork.</p>
+            <div class="flex items-center">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-8 h-8 rounded-full mr-2">
+              <span class="text-sm text-gray-700">By Coach Raj Patel</span>
+            </div>
+            <a href="#" class="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+              Read Article
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Article 1 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/976873/pexels-photo-976873.jpeg" alt="Article 1" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Technique</span>
+              <span class="text-sm text-gray-500">May 10, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">The Science Behind Perfect Bat Swing Path</h3>
+            <p class="text-gray-600 mb-4">Understanding the physics of an optimal bat swing can help you make consistent contact and generate more power.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Priya Sharma</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg" alt="Article 2" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Training</span>
+              <span class="text-sm text-gray-500">May 5, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">How to Build a Complete Batting Practice Routine</h3>
+            <p class="text-gray-600 mb-4">Structured practice sessions that cover all aspects of batting, from footwork to shot selection.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Amit Kumar</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg" alt="Article 3" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Mental Game</span>
+              <span class="text-sm text-gray-500">April 28, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Overcoming Batting Slumps: The Mental Approach</h3>
+            <p class="text-gray-600 mb-4">Psychological techniques to regain confidence and form when you're struggling with your batting.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Raj Patel</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 4 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg" alt="Article 4" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Analysis</span>
+              <span class="text-sm text-gray-500">April 22, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Breaking Down Kohli's Cover Drive Technique</h3>
+            <p class="text-gray-600 mb-4">What makes Virat Kohli's cover drive so effective and how you can incorporate elements into your own game.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Priya Sharma</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 5 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/248547/pexels-photo-248547.jpeg" alt="Article 5" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Equipment</span>
+              <span class="text-sm text-gray-500">April 15, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Choosing the Right Cricket Bat: Complete Guide</h3>
+            <p class="text-gray-600 mb-4">How to select the perfect bat based on your playing style, height, weight and skill level.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Amit Kumar</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 6 -->
+        <div class="article-card bg-white rounded-xl shadow-md overflow-hidden">
+          <img src="https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg" alt="Article 6" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <div class="flex items-center space-x-2 mb-3">
+              <span class="tag bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Fitness</span>
+              <span class="text-sm text-gray-500">April 8, 2023</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Cricket-Specific Strength Training Exercises</h3>
+            <p class="text-gray-600 mb-4">Build batting power and endurance with these targeted workouts designed specifically for cricketers.</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author" class="w-6 h-6 rounded-full mr-2">
+                <span class="text-xs text-gray-600">Raj Patel</span>
+              </div>
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">Read More →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="bg-gray-50 rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold mb-2">Get Cricket Tips Direct to Your Inbox</h3>
+        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">Subscribe to our newsletter for weekly batting tips, technique videos, and exclusive content.</p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300 whitespace-nowrap">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // Newsletter form submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const newsletterForm = document.querySelector('.bg-gray-50 form');
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const emailInput = this.querySelector('input[type="email"]');
+          if (emailInput.value) {
+            showToast('Thanks for subscribing!', 'success');
+            emailInput.value = '';
+          } else {
+            showToast('Please enter your email', 'error');
+          }
+        });
+      }
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
