@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Video - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .dropzone {
+      border: 2px dashed #cbd5e0;
+      transition: all 0.3s;
+    }
+    .dropzone.active {
+      border-color: #4299e1;
+      background-color: #ebf8ff;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Upload Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-3xl font-bold text-center mb-8">Upload Your Batting Video</h1>
+      
+      <div class="bg-gray-50 rounded-xl p-8 mb-8">
+        <div id="uploadContainer" class="dropzone rounded-lg p-12 text-center cursor-pointer transition-all duration-300">
+          <div class="mx-auto w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-cloud-upload-alt text-blue-500 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Drag & Drop Your Video Here</h3>
+          <p class="text-gray-500 mb-4">or</p>
+          <button id="selectFilesButton" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+            Select Files
+          </button>
+          <input type="file" id="videoUpload" accept="video/*" class="hidden">
+          <p class="text-sm text-gray-500 mt-4">Supported formats: MP4, WebM, MOV (Max 100MB)</p>
+        </div>
+
+        <div id="uploadProgress" class="hidden mt-6">
+          <div class="flex justify-between mb-2">
+            <span class="font-medium">Uploading...</span>
+            <span id="progressPercent" class="font-medium">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="videoPreview" class="hidden mt-8">
+          <h3 class="text-lg font-semibold mb-4">Video Preview</h3>
+          <video id="previewPlayer" controls class="w-full rounded-lg shadow-md"></video>
+          <div class="mt-4 flex justify-end space-x-3">
+            <button id="analyzeButton" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+              Analyze Video
+            </button>
+            <button id="cancelButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-md transition duration-300">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <i class="fas fa-info-circle text-blue-500"></i>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-blue-800">Upload Tips</h3>
+            <div class="mt-2 text-sm text-blue-700">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Record from side-on for best analysis results</li>
+                <li>Ensure good lighting and clear visibility of the batter</li>
+                <li>Keep the video under 2 minutes for faster processing</li>
+                <li>Remove any distracting background movement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // Upload functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropzone = document.getElementById('uploadContainer');
+      const fileInput = document.getElementById('videoUpload');
+      const selectFilesButton = document.getElementById('selectFilesButton');
+      const uploadProgress = document.getElementById('uploadProgress');
+      const progressBar = document.getElementById('progressBar');
+      const progressPercent = document.getElementById('progressPercent');
+      const videoPreview = document.getElementById('videoPreview');
+      const previewPlayer = document.getElementById('previewPlayer');
+      const analyzeButton = document.getElementById('analyzeButton');
+      const cancelButton = document.getElementById('cancelButton');
+
+      // Handle file selection via button
+      selectFilesButton.addEventListener('click', () => fileInput.click());
+
+      // Handle file input change
+      fileInput.addEventListener('change', handleFiles);
+
+      // Set up drag and drop
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, highlight, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, unhighlight, false);
+      });
+
+      function highlight() {
+        dropzone.classList.add('active');
+      }
+
+      function unhighlight() {
+        dropzone.classList.remove('active');
+      }
+
+      // Handle dropped files
+      dropzone.addEventListener('drop', handleDrop, false);
+
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files } });
+      }
+
+      // Process selected files
+      function handleFiles(e) {
+        const files = e.target.files;
+        if (!files.length) return;
+
+        const file = files[0];
+        if (!file.type.match('video.*')) {
+          showToast('Please upload a video file', 'error');
+          return;
+        }
+
+        if (file.size > 100 * 1024 * 1024) { // 100MB limit
+          showToast('File size exceeds 100MB limit', 'error');
+          return;
+        }
+
+        // Simulate upload progress
+        uploadProgress.classList.remove('hidden');
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.random() * 10;
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            uploadComplete(file);
+          }
+          progressBar.style.width = `${progress}%`;
+          progressPercent.textContent = `${Math.round(progress)}%`;
+        }, 200);
+      }
+
+      function uploadComplete(file) {
+        uploadProgress.classList.add('hidden');
+        videoPreview.classList.remove('hidden');
+        
+        const videoURL = URL.createObjectURL(file);
+        previewPlayer.src = videoURL;
+        
+        dropzone.classList.add('hidden');
+      }
+
+      // Handle analyze button
+      analyzeButton.addEventListener('click', () => {
+        showToast('Analysis started! Redirecting to results...', 'success');
+        setTimeout(() => {
+          window.location.href = 'results.html';
+        }, 1500);
+      });
+
+      // Handle cancel button
+      cancelButton.addEventListener('click', () => {
+        previewPlayer.src = '';
+        videoPreview.classList.add('hidden');
+        dropzone.classList.remove('hidden');
+        fileInput.value = '';
+      });
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
