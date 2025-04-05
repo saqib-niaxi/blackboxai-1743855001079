@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-map {
+      filter: grayscale(1) contrast(1.2) opacity(0.9);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Contact Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Have questions or feedback? We'd love to hear from you!</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Form -->
+        <div class="bg-gray-50 rounded-xl p-8">
+          <h2 class="text-2xl font-semibold mb-6">Send us a message</h2>
+          <form id="contactForm" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+              </div>
+            </div>
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input type="text" id="subject" name="subject" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition duration-300">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <div class="bg-gray-50 rounded-xl p-8 mb-6">
+            <h2 class="text-2xl font-semibold mb-6">Get in touch</h2>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-map-marker-alt text-blue-500"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-medium text-gray-900">Our Office</h3>
+                  <p class="text-gray-600">123 Cricket Lane<br>Sports District<br>Mumbai 400001, India</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-envelope text-green-500"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-medium text-gray-900">Email Us</h3>
+                  <p class="text-gray-600">
+                    <a href="mailto:info@cricketanalyzer.com" class="text-blue-500 hover:text-blue-700">info@cricketanalyzer.com</a><br>
+                    <a href="mailto:support@cricketanalyzer.com" class="text-blue-500 hover:text-blue-700">support@cricketanalyzer.com</a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-phone-alt text-purple-500"></i>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-medium text-gray-900">Call Us</h3>
+                  <p class="text-gray-600">
+                    <a href="tel:+911234567890" class="text-blue-500 hover:text-blue-700">+91 12345 67890</a><br>
+                    Mon-Fri: 9am-6pm IST
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="bg-gray-50 rounded-xl overflow-hidden">
+            <div class="contact-map h-64 w-full bg-gray-300 flex items-center justify-center">
+              <i class="fas fa-map text-4xl text-gray-500"></i>
+            </div>
+            <div class="p-4 text-center">
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">View on Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <div class="space-y-4">
+            <div class="border-b border-gray-200 pb-4">
+              <button class="faq-question flex justify-between items-center w-full text-left font-medium text-gray-900">
+                <span>How accurate is the batting analysis?</span>
+                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-answer mt-2 text-gray-600 hidden">
+                <p>Our analysis is powered by advanced computer vision and machine learning algorithms trained on thousands of professional cricket shots. While no system is perfect, our technology provides professional-level accuracy in identifying shot types and technical elements.</p>
+              </div>
+            </div>
+            <div class="border-b border-gray-200 pb-4">
+              <button class="faq-question flex justify-between items-center w-full text-left font-medium text-gray-900">
+                <span>What video formats do you support?</span>
+                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-answer mt-2 text-gray-600 hidden">
+                <p>We support most common video formats including MP4, MOV, and WebM. For best results, we recommend using MP4 format with H.264 codec. Videos should be under 100MB in size for upload.</p>
+              </div>
+            </div>
+            <div class="border-b border-gray-200 pb-4">
+              <button class="faq-question flex justify-between items-center w-full text-left font-medium text-gray-900">
+                <span>How long does analysis take?</span>
+                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-answer mt-2 text-gray-600 hidden">
+                <p>Analysis time depends on video length and server load. Typically, a 1-minute video takes about 30-60 seconds to process. You'll receive an email notification when your results are ready.</p>
+              </div>
+            </div>
+            <div>
+              <button class="faq-question flex justify-between items-center w-full text-left font-medium text-gray-900">
+                <span>Can I compare my current results with past sessions?</span>
+                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
+              </button>
+              <div class="faq-answer mt-2 text-gray-600 hidden">
+                <p>Yes! Registered users can access their complete history in the dashboard, with tools to compare performance across different time periods and track improvement over time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // FAQ accordion functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const answer = this.nextElementSibling;
+          const icon = this.querySelector('i');
+          
+          // Toggle answer visibility
+          answer.classList.toggle('hidden');
+          
+          // Rotate icon
+          icon.classList.toggle('rotate-180');
+          
+          // Close other open FAQs
+          faqQuestions.forEach(q => {
+            if (q !== question) {
+              q.nextElementSibling.classList.add('hidden');
+              q.querySelector('i').classList.remove('rotate-180');
+            }
+          });
+        });
+      });
+
+      // Contact form submission
+      const contactForm = document.getElementById('contactForm');
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        if (name && email && subject && message) {
+          // In a real app, you would send this data to your backend
+          showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+          contactForm.reset();
+        } else {
+          showToast('Please fill in all fields', 'error');
+        }
+      });
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
