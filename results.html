@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analysis Results - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .shot-timeline {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e0 #f1f1f1;
+    }
+    .shot-timeline::-webkit-scrollbar {
+      height: 8px;
+    }
+    .shot-timeline::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .shot-timeline::-webkit-scrollbar-thumb {
+      background: #cbd5e0;
+      border-radius: 4px;
+    }
+    .shot-timeline::-webkit-scrollbar-thumb:hover {
+      background: #a0aec0;
+    }
+    .quality-meter {
+      background: linear-gradient(90deg, #f56565 0%, #f6e05e 50%, #48bb78 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Results Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">Batting Analysis Results</h1>
+        <div class="flex space-x-3">
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-300 flex items-center">
+            <i class="fas fa-download mr-2"></i> Export
+          </button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 flex items-center">
+            <i class="fas fa-share-alt mr-2"></i> Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Video and Timeline -->
+      <div class="bg-gray-50 rounded-xl p-6 mb-8">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <div class="flex-1">
+            <video controls class="w-full rounded-lg shadow-md">
+              <source src="https://example.com/sample-video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="lg:w-80">
+            <h3 class="text-lg font-semibold mb-4">Session Summary</h3>
+            <div class="space-y-4">
+              <div>
+                <p class="text-sm text-gray-500">Total Shots</p>
+                <p class="text-2xl font-bold">14</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Session Duration</p>
+                <p class="text-2xl font-bold">2:45</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Overall Quality</p>
+                <div class="flex items-center">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                    <div class="quality-meter h-2.5 rounded-full" style="width: 78%"></div>
+                  </div>
+                  <span class="text-sm font-medium">78%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shot Timeline -->
+        <div class="mt-6">
+          <h3 class="text-lg font-semibold mb-4">Shot Timeline</h3>
+          <div class="shot-timeline overflow-x-auto whitespace-nowrap py-2">
+            <div class="inline-flex space-x-3">
+              <!-- Sample shot markers -->
+              <div class="inline-block w-24 h-24 bg-green-100 rounded-lg border-2 border-green-400 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition">
+                <span class="text-xs font-medium text-green-800">0:12</span>
+                <span class="text-sm font-bold mt-1 text-green-800">Cover Drive</span>
+                <div class="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
+              </div>
+              <div class="inline-block w-24 h-24 bg-yellow-100 rounded-lg border-2 border-yellow-400 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition">
+                <span class="text-xs font-medium text-yellow-800">0:24</span>
+                <span class="text-sm font-bold mt-1 text-yellow-800">Pull Shot</span>
+                <div class="w-4 h-4 bg-yellow-500 rounded-full mt-1"></div>
+              </div>
+              <div class="inline-block w-24 h-24 bg-red-100 rounded-lg border-2 border-red-400 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition">
+                <span class="text-xs font-medium text-red-800">0:38</span>
+                <span class="text-sm font-bold mt-1 text-red-800">Sweep</span>
+                <div class="w-4 h-4 bg-red-500 rounded-full mt-1"></div>
+              </div>
+              <!-- More shot markers would be dynamically generated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shot Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Shot Distribution Chart -->
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold mb-4">Shot Distribution</h3>
+          <canvas id="shotChart" height="250"></canvas>
+        </div>
+
+        <!-- Shot Quality Chart -->
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold mb-4">Shot Quality Trend</h3>
+          <canvas id="qualityChart" height="250"></canvas>
+        </div>
+      </div>
+
+      <!-- Detailed Shot Analysis -->
+      <div class="bg-gray-50 rounded-xl p-6 mb-8">
+        <h3 class="text-lg font-semibold mb-4">Detailed Shot Analysis</h3>
+        <div class="space-y-4">
+          <!-- Sample shot analysis card -->
+          <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-bold text-blue-800">Cover Drive (0:12)</h4>
+                <p class="text-sm text-gray-600">Front foot, off-side shot</p>
+              </div>
+              <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Excellent</span>
+            </div>
+            <div class="mt-3">
+              <p class="text-sm font-medium mb-1">Technique Analysis:</p>
+              <ul class="list-disc pl-5 text-sm space-y-1">
+                <li>Perfect weight transfer (92%)</li>
+                <li>Ideal bat swing path (87° angle)</li>
+                <li>Excellent head position (stable)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Another sample shot analysis card -->
+          <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-red-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-bold text-red-800">Sweep (0:38)</h4>
+                <p class="text-sm text-gray-600">Front foot, leg-side shot</p>
+              </div>
+              <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Needs Work</span>
+            </div>
+            <div class="mt-3">
+              <p class="text-sm font-medium mb-1">Technique Analysis:</p>
+              <ul class="list-disc pl-5 text-sm space-y-1">
+                <li>Early weight transfer (63%)</li>
+                <li>Closed bat face at contact (-12°)</li>
+                <li>Head falling over (unstable)</li>
+              </ul>
+            </div>
+            <div class="mt-3 bg-yellow-50 border-l-4 border-yellow-400 p-3">
+              <p class="text-sm font-medium text-yellow-800">Recommendation:</p>
+              <p class="text-sm">Focus on keeping your head still and maintain balance through the shot. Practice with slower deliveries first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Improvement Suggestions -->
+      <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
+        <h3 class="text-lg font-semibold mb-4">Overall Improvement Suggestions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-balance-scale text-blue-500"></i>
+              </div>
+              <h4 class="font-medium">Balance</h4>
+            </div>
+            <p class="text-sm text-gray-600">Your balance deteriorates on 23% of shots, especially on the leg side.</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-route text-purple-500"></i>
+              </div>
+              <h4 class="font-medium">Bat Path</h4>
+            </div>
+            <p class="text-sm text-gray-600">Work on maintaining a consistent bat path, especially on drives.</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-eye text-green-500"></i>
+              </div>
+              <h4 class="font-medium">Head Position</h4>
+            </div>
+            <p class="text-sm text-gray-600">Keep your head still and eyes level through the shot for better consistency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Shot Distribution Chart
+      const shotCtx = document.getElementById('shotChart').getContext('2d');
+      const shotChart = new Chart(shotCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Cover Drive', 'Pull Shot', 'Straight Drive', 'Cut Shot', 'Sweep', 'Others'],
+          datasets: [{
+            data: [28, 22, 18, 15, 10, 7],
+            backgroundColor: [
+              '#4299e1',
+              '#f6ad55',
+              '#48bb78',
+              '#9f7aea',
+              '#f56565',
+              '#a0aec0'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'right',
+            }
+          }
+        }
+      });
+
+      // Shot Quality Chart
+      const qualityCtx = document.getElementById('qualityChart').getContext('2d');
+      const qualityChart = new Chart(qualityCtx, {
+        type: 'line',
+        data: {
+          labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+          datasets: [{
+            label: 'Shot Quality Score',
+            data: [72, 78, 85, 82, 76, 65, 88, 92, 84, 79, 68, 74, 81, 89],
+            fill: false,
+            borderColor: '#4299e1',
+            tension: 0.3,
+            pointBackgroundColor: '#4299e1',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 50,
+              max: 100
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
