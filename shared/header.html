@@ -1,0 +1,36 @@
+<header class="bg-gray-900 text-white sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 12L12 17L21 12" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 17L12 22L21 17" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1 class="text-xl font-bold">Cricket Batting Analyzer</h1>
+    </div>
+    <nav class="hidden md:flex space-x-8">
+      <a href="index.html" class="hover:text-blue-400 transition">Home</a>
+      <a href="about.html" class="hover:text-blue-400 transition">About</a>
+      <a href="analysis.html" class="hover:text-blue-400 transition">Analysis</a>
+      <a href="upload.html" class="hover:text-blue-400 transition">Upload</a>
+      <a href="live.html" class="hover:text-blue-400 transition">Live</a>
+      <a href="auth.html" class="bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-700 transition">Login</a>
+    </nav>
+    <button class="md:hidden" id="mobileMenuButton">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div class="md:hidden hidden bg-gray-800" id="mobileMenu">
+    <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+      <a href="index.html" class="block py-2 hover:text-blue-400">Home</a>
+      <a href="about.html" class="block py-2 hover:text-blue-400">About</a>
+      <a href="analysis.html" class="block py-2 hover:text-blue-400">Analysis</a>
+      <a href="upload.html" class="block py-2 hover:text-blue-400">Upload</a>
+      <a href="live.html" class="block py-2 hover:text-blue-400">Live</a>
+      <a href="auth.html" class="block py-2 text-blue-400">Login</a>
+    </div>
+  </div>
+</header>
