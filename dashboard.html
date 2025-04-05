@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.5s;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    .nav-item.active {
+      border-left: 3px solid #4299e1;
+      background-color: #ebf8ff;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Dashboard Section -->
+  <section class="py-8 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Sidebar Navigation -->
+        <div class="md:w-64 flex-shrink-0">
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-6">
+              <div class="w-16 h-16 bg-blue-100 rounded-full overflow-hidden mr-4">
+                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Profile" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <h3 class="font-bold">Rahul Sharma</h3>
+                <p class="text-sm text-gray-500">All-Rounder</p>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <a href="#" class="block py-2 px-3 rounded-md hover:bg-gray-100 nav-item active">
+                <i class="fas fa-tachometer-alt mr-2 text-blue-500"></i> Dashboard
+              </a>
+              <a href="#" class="block py-2 px-3 rounded-md hover:bg-gray-100 nav-item">
+                <i class="fas fa-video mr-2 text-gray-500"></i> My Videos
+              </a>
+              <a href="#" class="block py-2 px-3 rounded-md hover:bg-gray-100 nav-item">
+                <i class="fas fa-chart-bar mr-2 text-gray-500"></i> Statistics
+              </a>
+              <a href="#" class="block py-2 px-3 rounded-md hover:bg-gray-100 nav-item">
+                <i class="fas fa-trophy mr-2 text-gray-500"></i> Achievements
+              </a>
+              <a href="#" class="block py-2 px-3 rounded-md hover:bg-gray-100 nav-item">
+                <i class="fas fa-cog mr-2 text-gray-500"></i> Settings
+              </a>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h3 class="font-semibold mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+              <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md flex items-center justify-center">
+                <i class="fas fa-plus mr-2"></i> New Session
+              </button>
+              <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-md flex items-center justify-center">
+                <i class="fas fa-upload mr-2"></i> Upload Video
+              </button>
+              <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-md flex items-center justify-center">
+                <i class="fas fa-video mr-2"></i> Live Analysis
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+          <!-- Welcome Banner -->
+          <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 mb-6 text-white">
+            <h2 class="text-2xl font-bold mb-2">Welcome back, Rahul!</h2>
+            <p class="mb-4">You've analyzed 14 shots in your last session. Your overall quality improved by 5%.</p>
+            <button class="bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-md">
+              View Last Session
+            </button>
+          </div>
+
+          <!-- Stats Overview -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-sm text-gray-500">Total Sessions</p>
+                  <p class="text-2xl font-bold">24</p>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full">
+                  <i class="fas fa-calendar-alt text-blue-500"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-sm text-gray-500">Shots Analyzed</p>
+                  <p class="text-2xl font-bold">342</p>
+                </div>
+                <div class="bg-green-100 p-3 rounded-full">
+                  <i class="fas fa-bullseye text-green-500"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-sm text-gray-500">Current Level</p>
+                  <p class="text-2xl font-bold">Intermediate+</p>
+                </div>
+                <div class="bg-purple-100 p-3 rounded-full">
+                  <i class="fas fa-level-up-alt text-purple-500"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Chart -->
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-semibold">Your Progress</h3>
+              <select class="bg-gray-100 border border-gray-300 text-gray-700 py-1 px-3 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Last 7 Days</option>
+                <option selected>Last 30 Days</option>
+                <option>Last 90 Days</option>
+              </select>
+            </div>
+            <canvas id="progressChart" height="250"></canvas>
+          </div>
+
+          <!-- Recent Sessions -->
+          <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h3 class="text-lg font-semibold mb-4">Recent Sessions</h3>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shots</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quality</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Best Shot</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Today</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <div class="flex items-center">
+                        <div class="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
+                          <div class="bg-green-500 h-1.5 rounded-full" style="width: 78%"></div>
+                        </div>
+                        <span>78%</span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        Cover Drive (92%)
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <a href="#" class="text-blue-500 hover:text-blue-700">View</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2 days ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <div class="flex items-center">
+                        <div class="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
+                          <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <span>65%</span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                        Straight Drive (84%)
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <a href="#" class="text-blue-500 hover:text-blue-700">View</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5 days ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <div class="flex items-center">
+                        <div class="w-16 bg-gray-200 rounded-full h-1.5 mr-2">
+                          <div class="bg-green-500 h-1.5 rounded-full" style="width: 82%"></div>
+                        </div>
+                        <span>82%</span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        Pull Shot (88%)
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <a href="#" class="text-blue-500 hover:text-blue-700">View</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-4 text-center">
+              <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-medium">View All Sessions</a>
+            </div>
+          </div>
+
+          <!-- Improvement Areas -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h3 class="text-lg font-semibold mb-4">Focus Areas</h3>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">Head Position</span>
+                    <span class="text-sm font-medium text-gray-700">68%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-red-500 h-2.5 rounded-full" style="width: 68%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">Backlift</span>
+                    <span class="text-sm font-medium text-gray-700">72%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 72%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-700">Footwork</span>
+                    <span class="text-sm font-medium text-gray-700">78%</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: 78%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h3 class="text-lg font-semibold mb-4">Recent Achievements</h3>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-trophy text-blue-500 text-sm"></i>
+                    </div>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium">Consistency Star</h4>
+                    <p class="text-sm text-gray-600">5 consecutive sessions with quality above 75%</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-arrow-up text-green-500 text-sm"></i>
+                    </div>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium">Most Improved</h4>
+                    <p class="text-sm text-gray-600">Cover Drive quality improved by 15% this month</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <i class="fas fa-bullseye text-purple-500 text-sm"></i>
+                    </div>
+                  </div>
+                  <div class="ml-3">
+                    <h4 class="font-medium">Shot Specialist</h4>
+                    <p class="text-sm text-gray-600">Mastered the Pull Shot (85% quality)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Progress Chart
+      const progressCtx = document.getElementById('progressChart').getContext('2d');
+      const progressChart = new Chart(progressCtx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [{
+            label: 'Average Shot Quality',
+            data: [65, 72, 78, 82],
+            borderColor: '#4299e1',
+            backgroundColor: 'rgba(66, 153, 225, 0.1)',
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 50,
+              max: 100
+            }
+          }
+        }
+      });
+
+      // Set active nav item
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.classList.remove('active');
+            nav.classList.add('hover:bg-gray-100');
+            const icon = nav.querySelector('i');
+            icon.classList.remove('text-blue-500');
+            icon.classList.add('text-gray-500');
+          });
+          this.classList.add('active');
+          this.classList.remove('hover:bg-gray-100');
+          const icon = this.querySelector('i');
+          icon.classList.add('text-blue-500');
+          icon.classList.remove('text-gray-500');
+        });
+      });
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
