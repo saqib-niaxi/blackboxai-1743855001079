@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Recording - Cricket Batting Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    #webcam {
+      transform: scaleX(-1); /* Mirror effect */
+    }
+    .recording-indicator {
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Live Recording Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-3xl font-bold text-center mb-8">Live Batting Analysis</h1>
+      
+      <div class="bg-gray-50 rounded-xl p-8 mb-8">
+        <div class="flex flex-col md:flex-row gap-8">
+          <div class="flex-1">
+            <div class="relative bg-black rounded-lg overflow-hidden aspect-video mb-4">
+              <video id="webcam" autoplay muted class="w-full h-full object-cover"></video>
+              <div id="recordingIndicator" class="hidden absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full items-center">
+                <span class="w-2 h-2 bg-white rounded-full mr-1 recording-indicator"></span>
+                REC
+              </div>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+              <button id="startButton" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-md transition duration-300 flex items-center">
+                <i class="fas fa-circle mr-2"></i> Start Recording
+              </button>
+              <button id="stopButton" disabled class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-6 rounded-md transition duration-300 flex items-center opacity-50 cursor-not-allowed">
+                <i class="fas fa-stop mr-2"></i> Stop
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold mb-4">Recording Guidelines</h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-5 w-5 text-green-500 mt-1">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="ml-3 text-sm text-gray-700">Stand side-on to the camera with full body visible</p>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-5 w-5 text-green-500 mt-1">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="ml-3 text-sm text-gray-700">Ensure good lighting - avoid backlighting</p>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-5 w-5 text-green-500 mt-1">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="ml-3 text-sm text-gray-700">Position camera at batter's waist height</p>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 h-5 w-5 text-green-500 mt-1">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="ml-3 text-sm text-gray-700">Record in landscape mode for best results</p>
+              </div>
+            </div>
+            
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-lightbulb text-blue-500"></i>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-blue-800">Pro Tip</h3>
+                  <div class="mt-2 text-sm text-blue-700">
+                    <p>Record multiple shots (5-6) in one session for comprehensive analysis. Pause briefly between shots.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="recordingPreview" class="hidden bg-gray-50 rounded-xl p-8 mb-8">
+        <h2 class="text-xl font-bold mb-6 text-center">Recording Preview</h2>
+        <video id="recordedVideo" controls class="w-full rounded-lg shadow-md mb-6"></video>
+        <div class="flex justify-center space-x-4">
+          <button id="analyzeRecordingButton" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+            Analyze Recording
+          </button>
+          <button id="retakeButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-md transition duration-300">
+            Retake
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // Load header and footer components
+    fetch('shared/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+    
+    fetch('shared/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // Live recording functionality
+    document.addEventListener('DOMContentLoaded', async function() {
+      const webcam = document.getElementById('webcam');
+      const startButton = document.getElementById('startButton');
+      const stopButton = document.getElementById('stopButton');
+      const recordingIndicator = document.getElementById('recordingIndicator');
+      const recordingPreview = document.getElementById('recordingPreview');
+      const recordedVideo = document.getElementById('recordedVideo');
+      const analyzeRecordingButton = document.getElementById('analyzeRecordingButton');
+      const retakeButton = document.getElementById('retakeButton');
+
+      let mediaStream;
+      let mediaRecorder;
+      let recordedChunks = [];
+
+      // Access webcam
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'environment'
+          },
+          audio: false
+        });
+        webcam.srcObject = mediaStream;
+      } catch (err) {
+        console.error('Error accessing media devices:', err);
+        showToast('Could not access camera. Please check permissions.', 'error');
+      }
+
+      // Start recording
+      startButton.addEventListener('click', () => {
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(mediaStream, {
+          mimeType: 'video/webm;codecs=vp9'
+        });
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordedChunks, { type: 'video/webm' });
+          const videoURL = URL.createObjectURL(blob);
+          recordedVideo.src = videoURL;
+          recordingPreview.classList.remove('hidden');
+        };
+
+        mediaRecorder.start(100); // Collect data every 100ms
+        recordingIndicator.classList.remove('hidden');
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        stopButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        showToast('Recording started', 'success');
+      });
+
+      // Stop recording
+      stopButton.addEventListener('click', () => {
+        mediaRecorder.stop();
+        recordingIndicator.classList.add('hidden');
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        stopButton.classList.add('opacity-50', 'cursor-not-allowed');
+        showToast('Recording stopped', 'success');
+      });
+
+      // Analyze recording
+      analyzeRecordingButton.addEventListener('click', () => {
+        showToast('Processing your recording...', 'success');
+        setTimeout(() => {
+          window.location.href = 'results.html';
+        }, 2000);
+      });
+
+      // Retake recording
+      retakeButton.addEventListener('click', () => {
+        recordedVideo.src = '';
+        recordingPreview.classList.add('hidden');
+      });
+
+      // Clean up on page leave
+      window.addEventListener('beforeunload', () => {
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(track => track.stop());
+        }
+      });
+    });
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
